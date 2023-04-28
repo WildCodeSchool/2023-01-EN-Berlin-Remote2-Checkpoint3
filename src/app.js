@@ -5,13 +5,13 @@ const app = express();
 
 const albumHandlers = require('./albumHandlers');
 
-app.get('/api/album', albumHandlers.getAlbums);
-app.get('/api/album/:id', albumHandlers.getAlbumById);
+app.get('/api/albums', albumHandlers.getAlbums);
+app.get('/api/albums/:id', albumHandlers.getAlbumById);
 
 const trackHandlers = require('./trackHandlers');
 
-app.get('/api/track', trackHandlers.getTracks);
-app.get('/api/track/:id', trackHandlers.getTrackById);
+app.get('/api/tracks', trackHandlers.getTracks);
+app.get('/api/tracks/:id', trackHandlers.getTrackById);
 
 // Please keep this module.exports app, we need it for the tests !
 module.exports = app;
