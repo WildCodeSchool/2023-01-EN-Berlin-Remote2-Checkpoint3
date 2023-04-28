@@ -1,8 +1,18 @@
 const database = require('./database');
 
 const getTracks = (req, res) => {
+  let sql = 'select * from track';
+  let sqlValues = [];
+
+  const queryKeys = Object.keys(req.query);
+
+  if (queryKeys.length === 1 && queryKeys[0] === 'album') {
+    sql += ' where id_album = ?';
+    sqlValues = Object.values(req.query);
+  }
+
   database
-    .query('select * from track')
+    .query(sql, sqlValues)
     .then(([tracks]) => {
       res.json(tracks);
     })
@@ -27,6 +37,7 @@ const getTrackById = (req, res) => {
       res.status(500).send('Error retrieving data from the database');
     });
 };
+
 module.exports = {
   getTracks,
   getTrackById,
