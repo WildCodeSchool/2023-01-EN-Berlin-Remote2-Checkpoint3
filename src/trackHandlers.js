@@ -27,7 +27,25 @@ const getTrackById = (req, res) => {
       res.status(500).send('Error retrieving data from the database');
     });
 };
+const getTracksByAlbumId = (req, res) => {
+  const id = parseInt(req.params.id);
+  database
+    .query('select * from track where id_album = ?', [id])
+    .then(([track]) => {
+      if (track.length !== 0) {
+        res.json(track);
+      } else {
+        res.status(404).send('Not Found');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error retrieving data from the database');
+    });
+};
+
 module.exports = {
   getTracks,
   getTrackById,
+  getTracksByAlbumId,
 };
